@@ -150,9 +150,12 @@ if __name__ == "__main__":
                     jugador.ir_izq()
                 if event.key == pygame.K_RIGHT:
                     jugador.ir_der()
+                    jugador.derecha = True
                 if event.key == pygame.K_UP:
                     print "salto"
                     jugador.salto()
+            else:
+                jugador.derecha = False
         
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT and jugador.vel_x < 0:

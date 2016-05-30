@@ -12,6 +12,21 @@ VERDE    = (   0, 255,   0)
 # Dimensiones pantalla
 ANCHO  = 750
 ALTO = 600
+#cargar matriz de sprites
+def cargar_fondo(archivo, ancho, alto):
+    imagen = pygame.image.load(archivo).convert_alpha()
+    imagen_ancho, imagen_alto = imagen.get_size()
+    #print 'ancho: ', imagen_ancho, ' xmax: ', imagen_ancho/ancho
+    #print 'alto: ',imagen_alto, ' ymax: ', imagen_alto/alto
+    tabla_fondos = []  
+      
+    for fondo_x in range(0, imagen_ancho/ancho):
+       linea = []
+       tabla_fondos.append(linea)
+       for fondo_y in range(0, imagen_alto/alto):
+            cuadro = (fondo_x * ancho, fondo_y * alto, ancho, alto)
+            linea.append(imagen.subsurface(cuadro))
+    return tabla_fondos
 
 class Jugador(pygame.sprite.Sprite):
     
@@ -25,16 +40,29 @@ class Jugador(pygame.sprite.Sprite):
     
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        
-        # creamos el bloque
-        ancho = 40
-        alto = 60
-        self.image = pygame.Surface([ancho, alto])
-        self.image.fill(ROJO)
-        
+        self.jugador = cargar_fondo("Sprites/bahamut.png",96,96)
+        self.image = self.jugador[0][2]
         self.rect = self.image.get_rect()
-        
+        self.derecha = False
+        self.izquierda = False
+        self.cant = 3
+        self.ind = 0
+
     def update(self):
+
+        """ Movimiento de Sprite """
+        if self.derecha:
+            if self.ind < self.cant:
+                self.ind += 1
+            else:
+                self.ind = 0
+
+            self.image = self.jugador[self.ind][2]
+        else:
+            self.image = self.jugador[0][2]
+
+
+
         """ Mueve el jugador. """
         # Gravedad
         self.calc_grav()
