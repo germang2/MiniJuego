@@ -94,7 +94,7 @@ class Nivel_02(Nivel):
         self.limite=-1000
         # Arreglo con ancho, alto, x, y de la plataforma
         nivel = [ [210, 50, 500, 500],
-                 [210, 50, 200, 400],
+                 [210, 50, 100, 400],
                  [210, 50, 1000, 520],
                  [210, 50, 1200, 300],
                  ]
@@ -148,6 +148,7 @@ if __name__ == "__main__":
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     jugador.ir_izq()
+                    jugador.izquierda = True
                 if event.key == pygame.K_RIGHT:
                     jugador.ir_der()
                     jugador.derecha = True
@@ -156,6 +157,7 @@ if __name__ == "__main__":
                     jugador.salto()
             else:
                 jugador.derecha = False
+                jugador.izquierda = False
         
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT and jugador.vel_x < 0:

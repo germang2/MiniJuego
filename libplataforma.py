@@ -40,28 +40,35 @@ class Jugador(pygame.sprite.Sprite):
     
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.jugador = cargar_fondo("Sprites/bahamut.png",96,96)
+        #self.jugador = cargar_fondo("Sprites/bahamut.png",96,96)
+        self.jugador = cargar_fondo("Sprites/leviathan.png",96,96)
+        #self.jugador = cargar_fondo("Sprites/phoenix.png",96,96)
+        #self.jugador = cargar_fondo("Sprites/bear.png",74,120)
         self.image = self.jugador[0][2]
         self.rect = self.image.get_rect()
         self.derecha = False
         self.izquierda = False
         self.cant = 3
         self.ind = 0
+        self.aux = 2
 
     def update(self):
 
         """ Movimiento de Sprite """
-        if self.derecha:
-            if self.ind < self.cant:
-                self.ind += 1
-            else:
-                self.ind = 0
-
-            self.image = self.jugador[self.ind][2]
+        #Bahamunt, leviathan y phoenix
+        if self.ind < self.cant:
+            self.ind += 1
         else:
-            self.image = self.jugador[0][2]
+            self.ind = 0
 
+        if self.derecha:
+            self.aux = 2
+        elif self.izquierda:
+            self.aux = 1
+        else:
+            self.ind = 0
 
+        self.image = self.jugador[self.ind][self.aux]
 
         """ Mueve el jugador. """
         # Gravedad
