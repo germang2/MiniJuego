@@ -155,6 +155,16 @@ if __name__ == "__main__":
                 if event.key == pygame.K_UP:
                     print "salto"
                     jugador.salto()
+                if event.key == pygame.K_q:
+                    jugador.cambiarPersonaje(1)
+                if event.key == pygame.K_w:
+                    jugador.cambiarPersonaje(2)
+                if event.key == pygame.K_e:
+                    jugador.cambiarPersonaje(3)
+                if event.key == pygame.K_r:
+                    jugador.cambiarPersonaje(4)
+                if event.key == pygame.K_t:
+                    jugador.cambiarPersonaje(5)
             else:
                 jugador.derecha = False
                 jugador.izquierda = False
