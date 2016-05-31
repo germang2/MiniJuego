@@ -10,7 +10,7 @@ ROJO      = ( 255,   0,   0)
 VERDE    = (   0, 255,   0)
 
 # Dimensiones pantalla
-ANCHO  = 750
+ANCHO  = 1000
 ALTO = 600
 #cargar matriz de sprites
 def cargar_fondo(archivo, ancho, alto):
@@ -27,6 +27,26 @@ def cargar_fondo(archivo, ancho, alto):
             cuadro = (fondo_x * ancho, fondo_y * alto, ancho, alto)
             linea.append(imagen.subsurface(cuadro))
     return tabla_fondos
+
+# Sprite de lluvia
+class Lluvia(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.lluvia = cargar_fondo("Sprites/lluvia.png",1000,600)
+        self.image = self.lluvia[0][0]
+        self.rect = self.image.get_rect()
+        self.ind = 0
+
+    def update(self):
+        if self.ind < 2:
+            self.ind += 1
+        else:
+            self.ind = 0
+
+        self.image = self.lluvia[self.ind][0]
+
+
+
 
 class Jugador(pygame.sprite.Sprite):
     
@@ -71,7 +91,6 @@ class Jugador(pygame.sprite.Sprite):
     def update(self):
 
         """ Movimiento de Sprite """
-        #Bahamunt, leviathan y phoenix
         if self.ind < self.cant:
             self.ind += 1
         else:

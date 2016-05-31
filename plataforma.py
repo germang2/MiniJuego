@@ -24,7 +24,8 @@ class Nivel(object):
     
     # Imagen de Fondo
     #fondo = None
-    fondo=pygame.image.load("espacio.jpg")
+    fondo=pygame.image.load("forest.jpg")
+    fondo = pygame.transform.scale(fondo,(1000,600))
     #valor desplazamiento de fondo
     mov_fondo=0
     
@@ -134,6 +135,8 @@ if __name__ == "__main__":
     jugador.rect.x = 340
     jugador.rect.y = ALTO - jugador.rect.height
     activos_sp_lista.add(jugador)
+    lluvia = Lluvia()
+    activos_sp_lista.add(lluvia)
     
     fin = False
     
