@@ -196,5 +196,5 @@ if __name__ == "__main__":
         
         nivel_actual.draw(pantalla)
         activos_sp_lista.draw(pantalla)
-        reloj.tick(60)
+        reloj.tick(40)
         pygame.display.flip()
