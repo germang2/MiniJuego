@@ -73,6 +73,7 @@ class Jugador(pygame.sprite.Sprite):
         self.cant = 3
         self.ind = 0
         self.aux = 2
+        self.planear = False
 
     def cambiarPersonaje(self,pj):
         if pj == 1:
@@ -81,12 +82,15 @@ class Jugador(pygame.sprite.Sprite):
             self.jugador = self.leviathan
         elif pj == 3:
             self.jugador = self.phoenix
+            self.planear = True
         elif pj == 4:
             self.jugador = self.bear
         elif pj == 5:
             self.jugador = self.ifrit
         else:
             self.jugador = self.bear
+        if pj != 3:
+            self.planear = False
 
     def update(self):
 
@@ -145,7 +149,10 @@ class Jugador(pygame.sprite.Sprite):
         if self.vel_y == 0:
             self.vel_y = 1
         else:
-            self.vel_y += .35
+            if self.vel_y >= 0 and self.planear:
+                self.vel_y += .08
+            else:    
+                self.vel_y += .35
         
         # Revisamos si estamos en el suelo
         if self.rect.y >= ALTO - self.rect.height and self.vel_y >= 0:
@@ -154,7 +161,7 @@ class Jugador(pygame.sprite.Sprite):
             
     def salto(self):
         """ saltamos al pulsar boton de salto """
-        print "en salto"
+        #print "en salto"
         # Nos movemos abajo un poco y revisamos si hay una plataforma bajo el jugador
         self.rect.y += 2
         plataforma_col_lista = pygame.sprite.spritecollide(self, self.nivel.plataforma_lista, False)

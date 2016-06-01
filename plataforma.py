@@ -135,8 +135,8 @@ if __name__ == "__main__":
     jugador.rect.x = 340
     jugador.rect.y = ALTO - jugador.rect.height
     activos_sp_lista.add(jugador)
-    lluvia = Lluvia()
-    activos_sp_lista.add(lluvia)
+   # lluvia = Lluvia()
+    #activos_sp_lista.add(lluvia)
     
     fin = False
     
