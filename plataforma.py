@@ -39,6 +39,10 @@ class Nivel(object):
         """ Actualiza todo lo que este en este nivel."""
         self.plataforma_lista.update()
         self.enemigos_lista.update()
+        #cuando el jugador choca con un pincho
+        self.ls_impactos=pygame.sprite.spritecollide(self.jugador,self.enemigos_lista,False)
+        for self.elemento in self.ls_impactos:
+            print "choque con pincho"
     
     def draw(self, pantalla):
         """ Dibuja lo que se encuentre en el nivel. """
@@ -68,7 +72,17 @@ class Nivel_01(Nivel):
         
         # Llamamos al padre
         Nivel.__init__(self, jugador)
-        self.limite=-1000
+        self.limite=-3000
+
+        self.ls_pinchos=pygame.sprite.Group()
+        for i in range(4):
+            pincho = Pincho()
+            pincho.rect.x = (i+1)*522
+            pincho.rect.y = ALTO-pincho.rect.height
+            self.enemigos_lista.add(pincho)
+            self.ls_pinchos.add(pincho)
+
+
         # Arreglo con ancho, alto, x, y de la plataforma
         nivel = [ [210, 70, 500, 500],
                   [210, 70, 800, 400],
@@ -78,11 +92,13 @@ class Nivel_01(Nivel):
             
         
         for plataforma in nivel:
-            bloque = Plataforma(plataforma[0], plataforma[1])
+            bloque = Base()
             bloque.rect.x = plataforma[2]
             bloque.rect.y = plataforma[3]
             bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
+
+        
 
 class Nivel_02(Nivel):
     """ Definicion para el nivel 2. """
@@ -135,9 +151,11 @@ if __name__ == "__main__":
     jugador.rect.x = 340
     jugador.rect.y = ALTO - jugador.rect.height
     activos_sp_lista.add(jugador)
-   # lluvia = Lluvia()
+    """ LLuvia """
+    #lluvia = Lluvia()
     #activos_sp_lista.add(lluvia)
-    
+   
+
     fin = False
     
     # Controlamos que tan rapido actualizamos pantalla
@@ -156,7 +174,6 @@ if __name__ == "__main__":
                     jugador.ir_der()
                     jugador.derecha = True
                 if event.key == pygame.K_UP:
-                    print "salto"
                     jugador.salto()
                 if event.key == pygame.K_q:
                     jugador.cambiarPersonaje(1)
@@ -205,8 +222,8 @@ if __name__ == "__main__":
               nivel_actual = nivel_lista[nivel_actual_no]
               jugador.nivel=nivel_actual
 
-        
-        
+
+
         nivel_actual.draw(pantalla)
         activos_sp_lista.draw(pantalla)
         reloj.tick(40)

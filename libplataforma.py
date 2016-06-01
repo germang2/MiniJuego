@@ -184,3 +184,14 @@ class Jugador(pygame.sprite.Sprite):
         """ Usuario no pulsa teclas """
         self.vel_x = 0
 
+class Pincho(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("Objetos/pinchos.png").convert_alpha()
+        self.rect = self.image.get_rect()
+
+class Base(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("Objetos/pl1.png").convert_alpha()
+        self.rect = self.image.get_rect()
