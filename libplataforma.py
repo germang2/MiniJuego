@@ -74,6 +74,7 @@ class Jugador(pygame.sprite.Sprite):
         self.ind = 0
         self.aux = 2
         self.planear = False
+        self.aum_y = -10
 
     def cambiarPersonaje(self,pj):
         if pj == 1:
@@ -87,10 +88,14 @@ class Jugador(pygame.sprite.Sprite):
             self.jugador = self.bear
         elif pj == 5:
             self.jugador = self.ifrit
+            self.aum_y = -15
         else:
             self.jugador = self.bear
         if pj != 3:
             self.planear = False
+        if pj != 5:
+            self.aum_y = -10
+        
 
     def update(self):
 
@@ -169,7 +174,7 @@ class Jugador(pygame.sprite.Sprite):
         
         # Si es posible saltar, aumentamos velocidad hacia arriba
         if len(plataforma_col_lista) > 0 or self.rect.bottom >= ALTO:
-            self.vel_y = -10
+            self.vel_y = self.aum_y
             
     # Control del movimiento
     def ir_izq(self):

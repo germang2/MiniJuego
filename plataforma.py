@@ -177,6 +177,7 @@ if __name__ == "__main__":
                     jugador.ir_der()
                     jugador.derecha = True
                 if event.key == pygame.K_UP:
+                    #print "salto"
                     jugador.salto()
                 if event.key == pygame.K_q:
                     jugador.cambiarPersonaje(1)
