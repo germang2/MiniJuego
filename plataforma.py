@@ -25,7 +25,7 @@ class Nivel(object):
     # Imagen de Fondo
     #fondo = None
     fondo=pygame.image.load("forest.jpg")
-    fondo = pygame.transform.scale(fondo,(1000,600))
+    fondo = pygame.transform.scale(fondo,(1300,600))
     #valor desplazamiento de fondo
     mov_fondo=0
     
@@ -83,18 +83,21 @@ class Nivel_01(Nivel):
             self.ls_pinchos.add(pincho)
 
 
-        # Arreglo con ancho, alto, x, y de la plataforma
-        nivel = [ [210, 70, 500, 500],
-                  [210, 70, 800, 400],
-                  [210, 70, 1000, 500],
-                  [210, 70, 1120, 300],
+        # Arreglo con x, y de las plataformas
+        nivel = [ [500, 500],
+                  [800, 400],
+                  [1000, 500],
+                  [1120, 300],
+                  [1500, 500],
+                  [1650, 200],
+                  [2400, 400],
                  ]
             
         
         for plataforma in nivel:
             bloque = Base()
-            bloque.rect.x = plataforma[2]
-            bloque.rect.y = plataforma[3]
+            bloque.rect.x = plataforma[0]
+            bloque.rect.y = plataforma[1]
             bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
 

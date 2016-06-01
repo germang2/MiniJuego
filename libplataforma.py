@@ -10,7 +10,7 @@ ROJO      = ( 255,   0,   0)
 VERDE    = (   0, 255,   0)
 
 # Dimensiones pantalla
-ANCHO  = 1000
+ANCHO  = 1300
 ALTO = 600
 #cargar matriz de sprites
 def cargar_fondo(archivo, ancho, alto):
