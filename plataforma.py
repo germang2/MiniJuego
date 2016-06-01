@@ -75,7 +75,7 @@ class Nivel_01(Nivel):
         self.limite=-3000
 
         self.ls_pinchos=pygame.sprite.Group()
-        for i in range(4):
+        for i in range(5):
             pincho = Pincho()
             pincho.rect.x = (i+1)*522
             pincho.rect.y = ALTO-pincho.rect.height
@@ -90,7 +90,9 @@ class Nivel_01(Nivel):
                   [1120, 300],
                   [1500, 500],
                   [1650, 200],
-                  [2400, 400],
+                  [2400, 450],
+                  [2550, 150],
+                  [2750, 300],
                  ]
             
         
