@@ -72,7 +72,8 @@ class Nivel_01(Nivel):
         
         # Llamamos al padre
         Nivel.__init__(self, jugador)
-        self.limite=-3000
+        self.limite=-5000
+        self.lvl = 1
 
         self.ls_pinchos=pygame.sprite.Group()
         for i in range(5):
@@ -84,15 +85,10 @@ class Nivel_01(Nivel):
 
 
         # Arreglo con x, y de las plataformas
-        nivel = [ [500, 500],
-                  [800, 400],
-                  [1000, 500],
-                  [1120, 300],
-                  [1500, 500],
-                  [1650, 200],
-                  [2400, 450],
-                  [2550, 150],
-                  [2750, 300],
+        nivel = [ [500, 500], [800, 400], [1000, 500], [1120, 300],
+                  [1500, 500], [1650, 200], [2400, 450], [2550, 150],
+                  [2750, 300], [3300, 400], [3600,400], [3800,350], 
+                  [4200, 350], [4700, 370],
                  ]
             
         
@@ -102,7 +98,6 @@ class Nivel_01(Nivel):
             bloque.rect.y = plataforma[1]
             bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
-
         
 
 class Nivel_02(Nivel):
@@ -114,6 +109,7 @@ class Nivel_02(Nivel):
         # Llamamos al padre
         Nivel.__init__(self, jugador)
         self.limite=-1000
+        self.lvl = 1
         # Arreglo con ancho, alto, x, y de la plataforma
         nivel = [ [210, 50, 500, 500],
                  [210, 50, 100, 400],
@@ -156,10 +152,10 @@ if __name__ == "__main__":
     jugador.rect.x = 340
     jugador.rect.y = ALTO - jugador.rect.height
     activos_sp_lista.add(jugador)
-    """ LLuvia """
-    #lluvia = Lluvia()
-    #activos_sp_lista.add(lluvia)
-   
+    
+    
+    lluvia = Lluvia()
+    isLluvia = True
 
     fin = False
     
@@ -228,7 +224,15 @@ if __name__ == "__main__":
               nivel_actual = nivel_lista[nivel_actual_no]
               jugador.nivel=nivel_actual
 
+        """ LLuvia """
 
+        if pos_actual < -2800 and isLluvia:
+            isLluvia = False
+            activos_sp_lista.add(lluvia)
+
+        if nivel_actual.lvl == 2:
+            activos_sp_lista.remove(lluvia)
+        
 
         nivel_actual.draw(pantalla)
         activos_sp_lista.draw(pantalla)
