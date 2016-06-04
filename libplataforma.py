@@ -200,3 +200,77 @@ class Base(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("Objetos/pl1.png").convert_alpha()
         self.rect = self.image.get_rect()
+
+class Vida(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("textures/health_20.png").convert_alpha()
+        self.rect = self.image.get_rect()
+        self.rect.x = 110
+        self.rect.y = 111
+        self.valor = 20
+
+    def update(self):
+        if self.valor == 20:
+            self.image = pygame.image.load("textures/health_20.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 19:
+            self.image = pygame.image.load("textures/health_19.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 18:
+            self.image = pygame.image.load("textures/health_18.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 17:
+            self.image = pygame.image.load("textures/health_17.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 16:
+            self.image = pygame.image.load("textures/health_16.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 15:
+            self.image = pygame.image.load("textures/health_15.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 14:
+            self.image = pygame.image.load("textures/health_14.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 13:
+            self.image = pygame.image.load("textures/health_13.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 12:
+            self.image = pygame.image.load("textures/health_12.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 11:
+            self.image = pygame.image.load("textures/health_11.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 10:
+            self.image = pygame.image.load("textures/health_10.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 9:
+            self.image = pygame.image.load("textures/health_9.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 8:
+            self.image = pygame.image.load("textures/health_8.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 7:
+            self.image = pygame.image.load("textures/health_7.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 6:
+            self.image = pygame.image.load("textures/health_6.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 5:
+            self.image = pygame.image.load("textures/health_5.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 4:
+            self.image = pygame.image.load("textures/health_4.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 3:
+            self.image = pygame.image.load("textures/health_3.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 2:
+            self.image = pygame.image.load("textures/health_2.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        elif self.valor == 1:
+            self.image = pygame.image.load("textures/health_1.png").convert_alpha()
+            self.rect = self.image.get_rect()
+        else:
+            self.image = pygame.image.load("textures/health_0.png").convert_alpha()
+            self.rect = self.image.get_rect()    

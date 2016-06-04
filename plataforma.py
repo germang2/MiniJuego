@@ -2,6 +2,7 @@ import pygame
 from  libplataforma import *
 
 #https://codeshare.io/2XFWk
+valor_vida = 20
 
 class Plataforma(pygame.sprite.Sprite):
     """ Plataforma donde el usuario puede subir """
@@ -33,6 +34,7 @@ class Nivel(object):
         self.plataforma_lista = pygame.sprite.Group()
         self.enemigos_lista = pygame.sprite.Group()
         self.jugador = jugador
+        self.cont = 0
     
     # Actualizamos elementos en el nivel
     def update(self):
@@ -42,7 +44,12 @@ class Nivel(object):
         #cuando el jugador choca con un pincho
         self.ls_impactos=pygame.sprite.spritecollide(self.jugador,self.enemigos_lista,False)
         for self.elemento in self.ls_impactos:
-            print "choque con pincho"
+            print "pinchos ",self.cont
+            if self.cont >= 0:
+                self.cont -= 1
+            else:
+                self.vida.valor -= 1
+                self.cont = 40
     
     def draw(self, pantalla):
         """ Dibuja lo que se encuentre en el nivel. """
@@ -67,21 +74,19 @@ class Nivel(object):
 class Nivel_01(Nivel):
     """ Definition for level 1. """
     
-    def __init__(self, jugador):
+    def __init__(self, jugador, vida):
         """ Creamos nivel 1. """
-        
+        self.vida = vida
         # Llamamos al padre
         Nivel.__init__(self, jugador)
         self.limite=-5000
         self.lvl = 1
 
-        self.ls_pinchos=pygame.sprite.Group()
         for i in range(5):
             pincho = Pincho()
             pincho.rect.x = (i+1)*522
             pincho.rect.y = ALTO-pincho.rect.height
             self.enemigos_lista.add(pincho)
-            self.ls_pinchos.add(pincho)
 
 
         # Arreglo con x, y de las plataformas
@@ -137,7 +142,8 @@ if __name__ == "__main__":
     
     # Creamos los niveles
     nivel_lista = []
-    nivel_lista.append( Nivel_01(jugador) )
+    vida = Vida()
+    nivel_lista.append( Nivel_01(jugador,vida) )
     nivel_lista.append( Nivel_02(jugador) )
     
     # Establecemos nivel actual
@@ -156,6 +162,9 @@ if __name__ == "__main__":
     
     lluvia = Lluvia()
     isLluvia = True
+
+    
+    activos_sp_lista.add(vida)
 
     fin = False
     
@@ -232,7 +241,6 @@ if __name__ == "__main__":
 
         if nivel_actual.lvl == 2:
             activos_sp_lista.remove(lluvia)
-        
 
         nivel_actual.draw(pantalla)
         activos_sp_lista.draw(pantalla)
