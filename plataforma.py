@@ -89,7 +89,7 @@ class Nivel_01(Nivel):
 
 	
 	# enemigo, la clase recibe como parametro el id del enemigo y la distancia que caminara
-	moco = Enemigo(4,70)
+	moco = Enemigo(3,60)
 	moco.rect.x = 500
 	moco.rect.y = 400
 	self.enemigos_lista.add(moco)
