@@ -1,5 +1,6 @@
 import pygame
 from  libplataforma import *
+from Enemigo import *
 
 #https://codeshare.io/2XFWk
 
@@ -88,10 +89,10 @@ class Nivel_01(Nivel):
 
 	
 	# enemigo
-	"""moco = Enemigo()
+	moco = Enemigo(3)
 	moco.rect.x = 500
-	moco.rect.y = 498
-	self.enemigos_lista.add(moco)"""
+	moco.rect.y = 400
+	self.enemigos_lista.add(moco)
         # Arreglo con x, y de las plataformas
         nivel = [ [500, 500], [800, 400], [1000, 500], [1120, 300],
                   [1500, 500], [1650, 200], [2400, 450], [2550, 150],

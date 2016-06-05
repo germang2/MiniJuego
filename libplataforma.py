@@ -271,23 +271,3 @@ class Vida(pygame.sprite.Sprite):
             self.rect = self.image.get_rect()  
         self.rect.x = 30
         self.rect.y = 40
-        
-class Enemigo(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.enemigo = cargar_fondo("Sprites/moco.JPG",108,79)
-        #self.enemigo = cargar_fondo("Sprites/mouse.JPG",108,71)
-        self.image = self.enemigo[0][0]
-        self.rect = self.image.get_rect()
-        self.ind = 0
-        self.cant = len(self.enemigo[0])
-        print self.cant
-
-    def update(self):
-    	if self.ind < 7:
-            self.ind += 1
-        else:
-            self.ind = 0
-        self.image = self.enemigo[self.ind][0]	
-        
-        
