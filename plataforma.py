@@ -2,17 +2,14 @@ import pygame
 from  libplataforma import *
 
 #https://codeshare.io/2XFWk
-valor_vida = 20
 
 class Plataforma(pygame.sprite.Sprite):
     """ Plataforma donde el usuario puede subir """
     
     def __init__(self, ancho, alto):
         pygame.sprite.Sprite.__init__(self)
-        
         self.image = pygame.Surface([ancho, alto])
-        self.image.fill(VERDE)
-        	 
+        self.image.fill(VERDE)  
         self.rect = self.image.get_rect()
                                     
 class Nivel(object):
@@ -44,13 +41,13 @@ class Nivel(object):
         #cuando el jugador choca con un pincho
         self.ls_impactos=pygame.sprite.spritecollide(self.jugador,self.enemigos_lista,False)
         for self.elemento in self.ls_impactos:
-            print "pinchos ",self.cont
+            #print "pinchos ",self.cont
             if self.cont >= 0:
                 self.cont -= 1
             else:
                 self.vida.valor -= 1
                 self.cont = 40
-    
+        
     def draw(self, pantalla):
         """ Dibuja lo que se encuentre en el nivel. """
         
@@ -82,13 +79,19 @@ class Nivel_01(Nivel):
         self.limite=-5000
         self.lvl = 1
 
+        # Creacion de 5 pinchos ubicados en el suelo
         for i in range(5):
             pincho = Pincho()
             pincho.rect.x = (i+1)*522
             pincho.rect.y = ALTO-pincho.rect.height
             self.enemigos_lista.add(pincho)
 
-
+	
+	# enemigo
+	"""moco = Enemigo()
+	moco.rect.x = 500
+	moco.rect.y = 498
+	self.enemigos_lista.add(moco)"""
         # Arreglo con x, y de las plataformas
         nivel = [ [500, 500], [800, 400], [1000, 500], [1120, 300],
                   [1500, 500], [1650, 200], [2400, 450], [2550, 150],
@@ -96,7 +99,7 @@ class Nivel_01(Nivel):
                   [4200, 350], [4700, 370],
                  ]
             
-        
+        # Creacion de las plataformas
         for plataforma in nivel:
             bloque = Base()
             bloque.rect.x = plataforma[0]
@@ -140,7 +143,7 @@ if __name__ == "__main__":
     # Creamos jugador
     jugador = Jugador()
     
-    # Creamos los niveles
+    # Creamos los niveles y la vida del jugador
     nivel_lista = []
     vida = Vida()
     nivel_lista.append( Nivel_01(jugador,vida) )
@@ -159,7 +162,7 @@ if __name__ == "__main__":
     jugador.rect.y = ALTO - jugador.rect.height
     activos_sp_lista.add(jugador)
     
-    
+    #Se crea el objeto de lluvia y se usa una bandera para activarla en el momento que se desea
     lluvia = Lluvia()
     isLluvia = True
 
@@ -213,29 +216,29 @@ if __name__ == "__main__":
         nivel_actual.update()
         
         #  Si el jugador se aproxima al limite derecho de la pantalla (-x)
-        if jugador.rect.x >= 500:
-            dif = jugador.rect.x - 500
-            jugador.rect.x = 500
+        if jugador.rect.x >= 650:
+            dif = jugador.rect.x - 650
+            jugador.rect.x = 650
             nivel_actual.Mover_fondo(-dif)
             
         # Si el jugador se aproxima al limite izquierdo de la pantalla (+x)
-        if jugador.rect.x <= 120:
-            dif = 120 - jugador.rect.x
-            jugador.rect.x = 120
+        if jugador.rect.x <= 300:
+            dif = 300 - jugador.rect.x
+            jugador.rect.x = 300
             nivel_actual.Mover_fondo(dif)
             
         #Si llegamos al final del nivel
         pos_actual=jugador.rect.x + nivel_actual.mov_fondo
         if pos_actual < nivel_actual.limite:
-            jugador.rect.x=120
+            jugador.rect.x=300
             if nivel_actual_no < len(nivel_lista)-1:
               nivel_actual_no += 1
               nivel_actual = nivel_lista[nivel_actual_no]
               jugador.nivel=nivel_actual
 
+        #verifica la posicion actual para activar la lluvia
         """ LLuvia """
-
-        if pos_actual < -2800 and isLluvia:
+        if pos_actual < -2100 and isLluvia:
             isLluvia = False
             activos_sp_lista.add(lluvia)
 

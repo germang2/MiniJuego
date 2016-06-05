@@ -33,7 +33,7 @@ class Lluvia(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.lluvia = cargar_fondo("Sprites/lluvia.png",1000,600)
-        self.image = self.lluvia[0][0]
+        self.image = pygame.transform.scale(self.lluvia[0][0],(1300,600))
         self.rect = self.image.get_rect()
         self.ind = 0
 
@@ -42,8 +42,7 @@ class Lluvia(pygame.sprite.Sprite):
             self.ind += 1
         else:
             self.ind = 0
-
-        self.image = self.lluvia[self.ind][0]
+        self.image = pygame.transform.scale(self.lluvia[self.ind][0],(1300,600))
 
 
 
@@ -204,10 +203,6 @@ class Base(pygame.sprite.Sprite):
 class Vida(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("textures/health_20.png").convert_alpha()
-        self.rect = self.image.get_rect()
-        self.rect.x = 110
-        self.rect.y = 111
         self.valor = 20
 
     def update(self):
@@ -273,4 +268,26 @@ class Vida(pygame.sprite.Sprite):
             self.rect = self.image.get_rect()
         else:
             self.image = pygame.image.load("textures/health_0.png").convert_alpha()
-            self.rect = self.image.get_rect()    
+            self.rect = self.image.get_rect()  
+        self.rect.x = 30
+        self.rect.y = 40
+        
+class Enemigo(pygame.sprite.Sprite):
+    def __init__(self):
+        pygame.sprite.Sprite.__init__(self)
+        self.enemigo = cargar_fondo("Sprites/moco.JPG",108,79)
+        #self.enemigo = cargar_fondo("Sprites/mouse.JPG",108,71)
+        self.image = self.enemigo[0][0]
+        self.rect = self.image.get_rect()
+        self.ind = 0
+        self.cant = len(self.enemigo[0])
+        print self.cant
+
+    def update(self):
+    	if self.ind < 7:
+            self.ind += 1
+        else:
+            self.ind = 0
+        self.image = self.enemigo[self.ind][0]	
+        
+        
