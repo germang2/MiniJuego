@@ -42,7 +42,12 @@ class Nivel(object):
         #cuando el jugador choca con un pincho
         self.ls_impactos=pygame.sprite.spritecollide(self.jugador,self.enemigos_lista,False)
         for self.elemento in self.ls_impactos:
-            #print "pinchos ",self.cont
+            # Verifica que sea un enemigo para poder destruirlo
+            self.pospies = self.jugador.rect.height+self.jugador.rect.y-5
+            if self.elemento.tipo == "enemigo":
+                if self.pospies <= self.elemento.rect.y and self.jugador.bajando:
+                    self.enemigos_lista.remove(self.elemento)
+            
             if self.cont >= 0:
                 self.cont -= 1
             else:
@@ -89,7 +94,7 @@ class Nivel_01(Nivel):
 
 	
 	# enemigo, la clase recibe como parametro el id del enemigo y la distancia que caminara
-	moco = Enemigo(3,60)
+	moco = Enemigo(1,60)
 	moco.rect.x = 500
 	moco.rect.y = 400
 	self.enemigos_lista.add(moco)

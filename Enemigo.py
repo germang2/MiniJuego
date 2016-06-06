@@ -6,6 +6,7 @@ class Enemigo(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.mover = True
         self.distancia = dist
+        self.tipo = "enemigo"
         if num == 1:
 			self.enemigo = cargar_fondo("Sprites/moco.png",107,77)
 			self.cant = 7

@@ -74,6 +74,7 @@ class Jugador(pygame.sprite.Sprite):
         self.aux = 2
         self.planear = False
         self.aum_y = -10
+        self.bajando = False
 
     def cambiarPersonaje(self,pj):
         if pj == 1:
@@ -157,7 +158,11 @@ class Jugador(pygame.sprite.Sprite):
                 self.vel_y += .08
             else:    
                 self.vel_y += .35
-        
+            if self.vel_y >= 0:
+                self.bajando = True
+            else:
+                self.bajando = False
+            
         # Revisamos si estamos en el suelo
         if self.rect.y >= ALTO - self.rect.height and self.vel_y >= 0:
             self.vel_y = 0
@@ -193,6 +198,7 @@ class Pincho(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("Objetos/pinchos.png").convert_alpha()
         self.rect = self.image.get_rect()
+        self.tipo = "pincho"
 
 class Base(pygame.sprite.Sprite):
     def __init__(self):
