@@ -28,25 +28,6 @@ def cargar_fondo(archivo, ancho, alto):
             linea.append(imagen.subsurface(cuadro))
     return tabla_fondos
 
-# Sprite de lluvia
-class Lluvia(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.lluvia = cargar_fondo("Sprites/lluvia.png",1000,600)
-        self.image = pygame.transform.scale(self.lluvia[0][0],(1300,600))
-        self.rect = self.image.get_rect()
-        self.ind = 0
-
-    def update(self):
-        if self.ind < 2:
-            self.ind += 1
-        else:
-            self.ind = 0
-        self.image = pygame.transform.scale(self.lluvia[self.ind][0],(1300,600))
-
-
-
-
 class Jugador(pygame.sprite.Sprite):
     
     # Atributos
@@ -162,7 +143,7 @@ class Jugador(pygame.sprite.Sprite):
                 self.bajando = True
             else:
                 self.bajando = False
-            
+
         # Revisamos si estamos en el suelo
         if self.rect.y >= ALTO - self.rect.height and self.vel_y >= 0:
             self.vel_y = 0

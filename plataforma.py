@@ -43,10 +43,11 @@ class Nivel(object):
         self.ls_impactos=pygame.sprite.spritecollide(self.jugador,self.enemigos_lista,False)
         for self.elemento in self.ls_impactos:
             # Verifica que sea un enemigo para poder destruirlo
-            self.pospies = self.jugador.rect.height+self.jugador.rect.y-5
+            self.pospies = self.jugador.rect.height+self.jugador.rect.y-10
             if self.elemento.tipo == "enemigo":
                 if self.pospies <= self.elemento.rect.y and self.jugador.bajando:
                     self.enemigos_lista.remove(self.elemento)
+                    self.jugador.vel_y = 0
             
             if self.cont >= 0:
                 self.cont -= 1
@@ -94,10 +95,10 @@ class Nivel_01(Nivel):
 
 	
 	# enemigo, la clase recibe como parametro el id del enemigo y la distancia que caminara
-	moco = Enemigo(1,60)
+	"""moco = Enemigo(3,60)
 	moco.rect.x = 500
 	moco.rect.y = 400
-	self.enemigos_lista.add(moco)
+	self.enemigos_lista.add(moco)"""
         # Arreglo con x, y de las plataformas
         nivel = [ [500, 500], [800, 400], [1000, 500], [1120, 300],
                   [1500, 500], [1650, 200], [2400, 450], [2550, 150],
@@ -112,6 +113,20 @@ class Nivel_01(Nivel):
             bloque.rect.y = plataforma[1]
             bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
+
+        enemigos = [ [1,20,1000,430],
+                     [1,21,1599,430],
+                     [4,100,1850,430],
+                     [4,100,3800,450],
+                     [4,90,4400,450]
+                    ]
+
+        for e in enemigos:
+            ene = Enemigo(e[0],e[1])
+            ene.rect.x = e[2]
+            ene.rect.y = e[3]
+            self.enemigos_lista.add(ene)
+
         
 
 class Nivel_02(Nivel):
@@ -167,11 +182,6 @@ if __name__ == "__main__":
     jugador.rect.x = 340
     jugador.rect.y = ALTO - jugador.rect.height
     activos_sp_lista.add(jugador)
-    
-    #Se crea el objeto de lluvia y se usa una bandera para activarla en el momento que se desea
-    lluvia = Lluvia()
-    isLluvia = True
-
     
     activos_sp_lista.add(vida)
 
@@ -242,16 +252,7 @@ if __name__ == "__main__":
               nivel_actual = nivel_lista[nivel_actual_no]
               jugador.nivel=nivel_actual
 
-        #verifica la posicion actual para activar la lluvia
-        """ LLuvia """
-        if pos_actual < -2100 and isLluvia:
-            isLluvia = False
-            activos_sp_lista.add(lluvia)
-
-        if nivel_actual.lvl == 2:
-            activos_sp_lista.remove(lluvia)
-
         nivel_actual.draw(pantalla)
         activos_sp_lista.draw(pantalla)
-        reloj.tick(40)
+        reloj.tick(60)
         pygame.display.flip()

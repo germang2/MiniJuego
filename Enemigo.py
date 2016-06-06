@@ -41,9 +41,9 @@ class Enemigo(pygame.sprite.Sprite):
                 else:
                     self.lado = 1
             if self.lado == 1:
-                self.aum = 6
+                self.aum = 4
             else:
-                self.aum = -6
+                self.aum = -4
             self.rect.x += self.aum
 
     def update(self):
