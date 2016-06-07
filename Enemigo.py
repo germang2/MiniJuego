@@ -6,6 +6,7 @@ class Enemigo(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.mover = True
         self.distancia = dist
+        self.tipo = "enemigo"
         if num == 1:
 			self.enemigo = cargar_fondo("Sprites/moco.png",107,77)
 			self.cant = 7
@@ -21,6 +22,8 @@ class Enemigo(pygame.sprite.Sprite):
         else:
         	self.enemigo = cargar_fondo("Sprites/cave.png",246,255)
         	self.cant = 14
+        if num == 5:
+            self.mover = False
 
         self.image = self.enemigo[0][0]
         self.rect = self.image.get_rect() 
@@ -40,9 +43,9 @@ class Enemigo(pygame.sprite.Sprite):
                 else:
                     self.lado = 1
             if self.lado == 1:
-                self.aum = 6
+                self.aum = 4
             else:
-                self.aum = -6
+                self.aum = -4
             self.rect.x += self.aum
 
     def update(self):

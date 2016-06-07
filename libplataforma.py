@@ -1,5 +1,4 @@
 import pygame
-
 # Constantes
 
 # Colores
@@ -28,25 +27,6 @@ def cargar_fondo(archivo, ancho, alto):
             linea.append(imagen.subsurface(cuadro))
     return tabla_fondos
 
-# Sprite de lluvia
-class Lluvia(pygame.sprite.Sprite):
-    def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.lluvia = cargar_fondo("Sprites/lluvia.png",1000,600)
-        self.image = pygame.transform.scale(self.lluvia[0][0],(1300,600))
-        self.rect = self.image.get_rect()
-        self.ind = 0
-
-    def update(self):
-        if self.ind < 2:
-            self.ind += 1
-        else:
-            self.ind = 0
-        self.image = pygame.transform.scale(self.lluvia[self.ind][0],(1300,600))
-
-
-
-
 class Jugador(pygame.sprite.Sprite):
     
     # Atributos
@@ -74,6 +54,7 @@ class Jugador(pygame.sprite.Sprite):
         self.aux = 2
         self.planear = False
         self.aum_y = -10
+        self.bajando = False
 
     def cambiarPersonaje(self,pj):
         if pj == 1:
@@ -157,7 +138,11 @@ class Jugador(pygame.sprite.Sprite):
                 self.vel_y += .08
             else:    
                 self.vel_y += .35
-        
+            if self.vel_y >= 0:
+                self.bajando = True
+            else:
+                self.bajando = False
+
         # Revisamos si estamos en el suelo
         if self.rect.y >= ALTO - self.rect.height and self.vel_y >= 0:
             self.vel_y = 0
@@ -193,12 +178,44 @@ class Pincho(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("Objetos/pinchos.png").convert_alpha()
         self.rect = self.image.get_rect()
+        self.tipo = "pincho"
 
 class Base(pygame.sprite.Sprite):
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("Objetos/pl1.png").convert_alpha()
         self.rect = self.image.get_rect()
+
+class BaseMov(pygame.sprite.Sprite):
+    def __init__(self,pto,dist):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("Objetos/pl2.png").convert_alpha()
+        self.rect = self.image.get_rect()
+        self.rect.x = pto[0]
+        self.rect.y = pto[1]
+        self.cont = 0
+        self.distancia = dist
+        self.lado = 1
+
+    def movHorizontal(self):
+        if self.cont < self.distancia and self.lado == 1:
+            self.rect.x += 2
+            self.cont += 1
+        else:
+            if self.lado == 1:
+                self.cont = self.distancia*2
+                self.lado = 2
+            
+        if self.cont > self.distancia and self.lado == 2:
+            self.rect.x -= 2
+            self.cont -= 1
+        else:
+            if self.lado == 2:
+                self.cont = 0
+                self.lado = 1
+
+    def update(self):        
+        self.movHorizontal()
 
 class Vida(pygame.sprite.Sprite):
     def __init__(self):
