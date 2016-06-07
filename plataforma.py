@@ -120,6 +120,7 @@ class Nivel_01(Nivel):
         basesMov = [ [5000,430, 80], [5800,390,200], [5300,200,140],
                     ]
 
+    pass
         for b in basesMov:
             bloque = BaseMov((b[0],b[1]),b[2])
             self.plataforma_lista.add(bloque)
