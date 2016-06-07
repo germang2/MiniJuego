@@ -181,9 +181,9 @@ class Pincho(pygame.sprite.Sprite):
         self.tipo = "pincho"
 
 class Base(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self,imagen):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("Objetos/pl1.png").convert_alpha()
+        self.image = pygame.image.load(imagen).convert_alpha()
         self.rect = self.image.get_rect()
 
 class BaseMov(pygame.sprite.Sprite):

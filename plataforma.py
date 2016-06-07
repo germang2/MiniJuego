@@ -83,7 +83,7 @@ class Nivel_01(Nivel):
         self.vida = vida
         # Llamamos al padre
         Nivel.__init__(self, jugador)
-        self.limite=-6000
+        self.limite=-7000
         self.lvl = 1
 
         # Creacion de 5 pinchos ubicados en el suelo
@@ -93,6 +93,12 @@ class Nivel_01(Nivel):
             pincho.rect.y = ALTO-pincho.rect.height
             self.enemigos_lista.add(pincho)
 
+        # Mas pinchos en otras posiciones
+        pincho = Pincho()
+        pincho.rect.x = 5750
+        pincho.rect.y = ALTO-pincho.rect.height
+        self.enemigos_lista.add(pincho)
+
         # Arreglo con x, y de las plataformas
         nivel = [ [500, 500], [800, 400], [1000, 500], [1120, 300], [1500, 500], [1650, 200], [2400, 450], [2550, 150],
                   [2750, 300], [3300, 400], [3600,400], [3800,350], [4200, 350], [4700, 370], [5450, 420], [5100, 100],
@@ -101,14 +107,14 @@ class Nivel_01(Nivel):
             
         # Creacion de las plataformas
         for plataforma in nivel:
-            bloque = Base()
+            bloque = Base("Objetos/pl1.png")
             bloque.rect.x = plataforma[0]
             bloque.rect.y = plataforma[1]
             bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
 
         enemigos = [ [1,20,1000,430], [1,21,1500,430], [4,100,1850,430], [4,100,3800,450], [4,90,4400,450],
-                     [2,20,5450,380], [2,22,5100,60], [2,18,5700,60],
+                     [2,20,5450,380], [2,22,5100,60], [2,18,5700,60], [3,120,6500,285], [3,50,6560,285], [3,50,6800,285],
                     ]
 
         for e in enemigos:
@@ -120,9 +126,20 @@ class Nivel_01(Nivel):
         basesMov = [ [5000,430, 80], [5800,390,200], [5300,200,140],
                     ]
 
-    pass
+    
         for b in basesMov:
             bloque = BaseMov((b[0],b[1]),b[2])
+            self.plataforma_lista.add(bloque)
+
+        masBases = [ [6500,400], [6546,400], [6592,400], [6638,400], [6684,400], [6730,400], [6776,400], [6822,400], [6868,400],
+                     [6914,400], [6960,400], [7006,400],
+                    ]
+
+        for  mb in masBases:
+            bloque = Base("Objetos/pl3.png")
+            bloque.rect.x = mb[0]
+            bloque.rect.y = mb[1]
+            bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
 
 class Nivel_02(Nivel):
@@ -175,7 +192,7 @@ if __name__ == "__main__":
     # Indicamos a la clase jugador cual es el nivel
     jugador.nivel = nivel_actual
     
-    jugador.rect.x = 5000
+    jugador.rect.x = 6000
     jugador.rect.y = ALTO - jugador.rect.height
     activos_sp_lista.add(jugador)
     
