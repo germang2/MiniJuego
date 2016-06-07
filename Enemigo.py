@@ -22,6 +22,8 @@ class Enemigo(pygame.sprite.Sprite):
         else:
         	self.enemigo = cargar_fondo("Sprites/cave.png",246,255)
         	self.cant = 14
+        if num == 5:
+            self.mover = False
 
         self.image = self.enemigo[0][0]
         self.rect = self.image.get_rect()

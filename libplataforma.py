@@ -1,5 +1,4 @@
 import pygame
-
 # Constantes
 
 # Colores
@@ -186,6 +185,37 @@ class Base(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.image = pygame.image.load("Objetos/pl1.png").convert_alpha()
         self.rect = self.image.get_rect()
+
+class BaseMov(pygame.sprite.Sprite):
+    def __init__(self,pto,dist):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.image.load("Objetos/pl2.png").convert_alpha()
+        self.rect = self.image.get_rect()
+        self.rect.x = pto[0]
+        self.rect.y = pto[1]
+        self.cont = 0
+        self.distancia = dist
+        self.lado = 1
+
+    def movHorizontal(self):
+        if self.cont < self.distancia and self.lado == 1:
+            self.rect.x += 2
+            self.cont += 1
+        else:
+            if self.lado == 1:
+                self.cont = self.distancia*2
+                self.lado = 2
+            
+        if self.cont > self.distancia and self.lado == 2:
+            self.rect.x -= 2
+            self.cont -= 1
+        else:
+            if self.lado == 2:
+                self.cont = 0
+                self.lado = 1
+
+    def update(self):        
+        self.movHorizontal()
 
 class Vida(pygame.sprite.Sprite):
     def __init__(self):

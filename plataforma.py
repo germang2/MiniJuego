@@ -93,17 +93,13 @@ class Nivel_01(Nivel):
             pincho.rect.y = ALTO-pincho.rect.height
             self.enemigos_lista.add(pincho)
 
-	
-	# enemigo, la clase recibe como parametro el id del enemigo y la distancia que caminara
-	"""moco = Enemigo(3,60)
-	moco.rect.x = 500
-	moco.rect.y = 400
-	self.enemigos_lista.add(moco)"""
+	    """
+        b = BaseMov((200,200),100)
+        self.plataforma_lista.add(b)
+        """
         # Arreglo con x, y de las plataformas
-        nivel = [ [500, 500], [800, 400], [1000, 500], [1120, 300],
-                  [1500, 500], [1650, 200], [2400, 450], [2550, 150],
-                  [2750, 300], [3300, 400], [3600,400], [3800,350], 
-                  [4200, 350], [4700, 370],
+        nivel = [ [500, 500], [800, 400], [1000, 500], [1120, 300], [1500, 500], [1650, 200], [2400, 450], [2550, 150],
+                  [2750, 300], [3300, 400], [3600,400], [3800,350], [4200, 350], [4700, 370], [5450, 420],
                  ]
             
         # Creacion de las plataformas
@@ -115,19 +111,25 @@ class Nivel_01(Nivel):
             self.plataforma_lista.add(bloque)
 
         enemigos = [ [1,20,1000,430],
-                     [1,21,1599,430],
+                     [1,21,1500,430],
                      [4,100,1850,430],
                      [4,100,3800,450],
-                     [4,90,4400,450]
+                     [4,90,4400,450],
+                     [2,20,5450,380]
                     ]
 
         for e in enemigos:
             ene = Enemigo(e[0],e[1])
             ene.rect.x = e[2]
             ene.rect.y = e[3]
-            self.enemigos_lista.add(ene)
+            self.enemigos_lista.add(ene)        
 
-        
+        basesMov = [ [5000,430, 80], [5800,390,70],
+                    ]
+
+        for b in basesMov:
+            bloque = BaseMov((b[0],b[1]),b[2])
+            self.plataforma_lista.add(bloque)
 
 class Nivel_02(Nivel):
     """ Definicion para el nivel 2. """
@@ -179,7 +181,7 @@ if __name__ == "__main__":
     # Indicamos a la clase jugador cual es el nivel
     jugador.nivel = nivel_actual
     
-    jugador.rect.x = 340
+    jugador.rect.x = 5000
     jugador.rect.y = ALTO - jugador.rect.height
     activos_sp_lista.add(jugador)
     
