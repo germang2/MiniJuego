@@ -26,7 +26,7 @@ class Enemigo(pygame.sprite.Sprite):
             self.mover = False
 
         self.image = self.enemigo[0][0]
-        self.rect = self.image.get_rect()
+        self.rect = self.image.get_rect() 
         self.ind = 0
         self.lado = 1
         self.aux = 0

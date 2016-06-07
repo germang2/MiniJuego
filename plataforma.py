@@ -29,7 +29,7 @@ class Nivel(object):
     mov_fondo=0
     
     def __init__(self, jugador):
-        self.plataforma_lista = pygame.sprite.Group()
+        self.plataforma_lista = pygame.sprite.Group() 
         self.enemigos_lista = pygame.sprite.Group()
         self.jugador = jugador
         self.cont = 0
@@ -83,7 +83,7 @@ class Nivel_01(Nivel):
         self.vida = vida
         # Llamamos al padre
         Nivel.__init__(self, jugador)
-        self.limite=-5000
+        self.limite=-6000
         self.lvl = 1
 
         # Creacion de 5 pinchos ubicados en el suelo
@@ -93,13 +93,10 @@ class Nivel_01(Nivel):
             pincho.rect.y = ALTO-pincho.rect.height
             self.enemigos_lista.add(pincho)
 
-	    """
-        b = BaseMov((200,200),100)
-        self.plataforma_lista.add(b)
-        """
         # Arreglo con x, y de las plataformas
         nivel = [ [500, 500], [800, 400], [1000, 500], [1120, 300], [1500, 500], [1650, 200], [2400, 450], [2550, 150],
-                  [2750, 300], [3300, 400], [3600,400], [3800,350], [4200, 350], [4700, 370], [5450, 420],
+                  [2750, 300], [3300, 400], [3600,400], [3800,350], [4200, 350], [4700, 370], [5450, 420], [5100, 100],
+                  [5700, 100],
                  ]
             
         # Creacion de las plataformas
@@ -110,12 +107,8 @@ class Nivel_01(Nivel):
             bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
 
-        enemigos = [ [1,20,1000,430],
-                     [1,21,1500,430],
-                     [4,100,1850,430],
-                     [4,100,3800,450],
-                     [4,90,4400,450],
-                     [2,20,5450,380]
+        enemigos = [ [1,20,1000,430], [1,21,1500,430], [4,100,1850,430], [4,100,3800,450], [4,90,4400,450],
+                     [2,20,5450,380], [2,22,5100,60], [2,18,5700,60],
                     ]
 
         for e in enemigos:
@@ -124,9 +117,10 @@ class Nivel_01(Nivel):
             ene.rect.y = e[3]
             self.enemigos_lista.add(ene)        
 
-        basesMov = [ [5000,430, 80], [5800,390,70],
+        basesMov = [ [5000,430, 80], [5800,390,200], [5300,200,140],
                     ]
 
+    pass
         for b in basesMov:
             bloque = BaseMov((b[0],b[1]),b[2])
             self.plataforma_lista.add(bloque)
