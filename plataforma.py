@@ -83,7 +83,7 @@ class Nivel_01(Nivel):
         self.vida = vida
         # Llamamos al padre
         Nivel.__init__(self, jugador)
-        self.limite=-7000
+        self.limite=-9000
         self.lvl = 1
 
         # Creacion de 5 pinchos ubicados en el suelo
@@ -94,10 +94,11 @@ class Nivel_01(Nivel):
             self.enemigos_lista.add(pincho)
 
         # Mas pinchos en otras posiciones
-        pincho = Pincho()
-        pincho.rect.x = 5750
-        pincho.rect.y = ALTO-pincho.rect.height
-        self.enemigos_lista.add(pincho)
+        pincho1 = Pincho();pincho1.rect.x = 5750;pincho1.rect.y = ALTO-pincho1.rect.height
+        pincho2 = Pincho();pincho2.rect.x = 6500;pincho2.rect.y = ALTO-pincho2.rect.height
+        pincho3 = Pincho();pincho3.rect.x = 7300;pincho3.rect.y = ALTO-pincho3.rect.height
+        pincho4 = Pincho();pincho4.rect.x = 7822;pincho4.rect.y = ALTO-pincho4.rect.height
+        self.enemigos_lista.add(pincho);self.enemigos_lista.add(pincho2);self.enemigos_lista.add(pincho3);self.enemigos_lista.add(pincho4)
 
         # Arreglo con x, y de las plataformas
         nivel = [ [500, 500], [800, 400], [1000, 500], [1120, 300], [1500, 500], [1650, 200], [2400, 450], [2550, 150],
@@ -113,8 +114,8 @@ class Nivel_01(Nivel):
             bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
 
-        enemigos = [ [1,20,1000,430], [1,21,1500,430], [4,100,1850,430], [4,100,3800,450], [4,90,4400,450],
-                     [2,20,5450,380], [2,22,5100,60], [2,18,5700,60], [3,120,6500,285], [3,50,6560,285], [3,50,6800,285],
+        enemigos = [ [1,20,1000,430], [1,21,1500,430], [1,19,2402,380], [4,100,1850,430], [4,100,3800,450], [4,90,4400,450],
+                     [1,20,3300,330], [2,20,5450,380], [2,22,5100,60], [2,18,5700,60], [3,120,6500,285], [3,50,6560,285], [3,50,6800,285],
                     ]
 
         for e in enemigos:
@@ -123,7 +124,8 @@ class Nivel_01(Nivel):
             ene.rect.y = e[3]
             self.enemigos_lista.add(ene)        
 
-        basesMov = [ [5000,430, 80], [5800,390,200], [5300,200,140],
+        basesMov = [ [5000,430, 80], [5800,390,200], [5300,200,140], [7100,430,201],
+                     [7400,350,198], [7700,240,196],
                     ]
 
     
@@ -139,6 +141,17 @@ class Nivel_01(Nivel):
             bloque = Base("Objetos/pl3.png")
             bloque.rect.x = mb[0]
             bloque.rect.y = mb[1]
+            bloque.jugador = self.jugador
+            self.plataforma_lista.add(bloque)
+            #46
+        torre = [ [8500,554], [8500,508], [8500,462], [8500,416], [8500,370], [8500,324], [8500,278],
+                  [8500,232], [8500,186], [8500,140],
+                ]
+
+        for t in torre:
+            bloque = Base("Objetos/pl4.png")
+            bloque.rect.x = t[0]
+            bloque.rect.y = t[1]
             bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
 
@@ -192,7 +205,7 @@ if __name__ == "__main__":
     # Indicamos a la clase jugador cual es el nivel
     jugador.nivel = nivel_actual
     
-    jugador.rect.x = 6000
+    jugador.rect.x = 8000
     jugador.rect.y = ALTO - jugador.rect.height
     activos_sp_lista.add(jugador)
     
