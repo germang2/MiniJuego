@@ -143,7 +143,7 @@ class Nivel_01(Nivel):
             bloque.rect.y = mb[1]
             bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
-            #46
+            
         torre = [ [8500,554], [8500,508], [8500,462], [8500,416], [8500,370], [8500,324], [8500,278],
                   [8500,232], [8500,186], [8500,140],
                 ]

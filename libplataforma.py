@@ -39,11 +39,11 @@ class Jugador(pygame.sprite.Sprite):
     
     def __init__(self):
         pygame.sprite.Sprite.__init__(self)
-        self.bahamut = cargar_fondo("Sprites/bahamut.png",96,96)
-        self.leviathan = cargar_fondo("Sprites/leviathan.png",96,96)
-        self.phoenix = cargar_fondo("Sprites/phoenix.png",96,96)
-        self.bear = cargar_fondo("Sprites/bear.png",72,85)
-        self.ifrit = cargar_fondo("Sprites/ifrit.png",80,80)
+        self.bahamut = cargar_fondo("Sprites/bahamut.png",125,125)
+        self.leviathan = cargar_fondo("Sprites/leviathan.png",125,125)
+        self.phoenix = cargar_fondo("Sprites/phoenix.png",125,125)
+        self.bear = cargar_fondo("Sprites/bear.png",103,125)
+        self.ifrit = cargar_fondo("Sprites/ifrit.png",125,125)
         self.jugador = self.bear
         self.image = self.jugador[0][2]
         self.rect = self.image.get_rect()
