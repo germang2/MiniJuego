@@ -14,8 +14,8 @@ class Enemigo(pygame.sprite.Sprite):
         	self.enemigo = cargar_fondo("Sprites/burro.png",106,131)
         	self.cant = 5
         elif num == 4:
-        	self.enemigo = cargar_fondo("Sprites/pig.png",120,138)
-        	self.cant = 3
+        	self.enemigo = cargar_fondo("Sprites/pig.png",100,118)
+        	self.cant = 4
         elif num == 2:
         	self.enemigo = cargar_fondo("Sprites/raton.png",109,60)
         	self.cant = 7

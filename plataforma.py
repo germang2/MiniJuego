@@ -101,9 +101,8 @@ class Nivel_01(Nivel):
         self.enemigos_lista.add(pincho);self.enemigos_lista.add(pincho2);self.enemigos_lista.add(pincho3);self.enemigos_lista.add(pincho4)
 
         # Arreglo con x, y de las plataformas
-        nivel = [ [500, 500], [800, 400], [1000, 500], [1120, 300], [1500, 500], [1650, 200], [2400, 450], [2550, 150],
-                  [2750, 300], [3300, 400], [3600,400], [3800,350], [4200, 350], [4700, 370], [5450, 420], [5100, 100],
-                  [5700, 100],
+        nivel = [ [500, 500], [770, 400], [1000, 500], [1120, 250], [1500, 500], [1700, 200], [2400, 450], [2550, 150],
+                  [3000,500], [3300, 380], [3600,380], [3800,350], [4200, 350], [4700, 370], [5450, 460], [5100, 100], [5700, 100],
                  ]
             
         # Creacion de las plataformas
@@ -114,8 +113,8 @@ class Nivel_01(Nivel):
             bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
 
-        enemigos = [ [1,20,1000,430], [1,21,1500,430], [1,19,2402,380], [4,100,1850,430], [4,100,3800,450], [4,90,4400,450],
-                     [1,20,3300,330], [2,20,5450,380], [2,22,5100,60], [2,18,5700,60], [3,120,6500,285], [3,50,6560,285], [3,50,6800,285],
+        enemigos = [ [1,20,1000,430], [1,21,1500,430], [1,19,2402,380], [4,100,1850,482], [4,100,3800,482], [4,90,4400,482],
+                     [1,20,3300,310], [2,20,5450,420], [2,22,5100,60], [2,18,5700,60], [3,120,6500,285], [3,50,6560,285], [3,50,6800,285],
                     ]
 
         for e in enemigos:
@@ -205,7 +204,7 @@ if __name__ == "__main__":
     # Indicamos a la clase jugador cual es el nivel
     jugador.nivel = nivel_actual
     
-    jugador.rect.x = 8000
+    jugador.rect.x = 2300
     jugador.rect.y = ALTO - jugador.rect.height
     activos_sp_lista.add(jugador)
     
