@@ -47,6 +47,11 @@ class Nivel(object):
                 if self.pospies <= self.elemento.rect.y and self.jugador.bajando:
                     self.enemigos_lista.remove(self.elemento)
                     self.jugador.vel_y = 0
+
+            if self.elemento.tipo == "jefe":
+                if self.pospies <= self.elemento.rect.y and self.jugador.bajando:
+                    self.elemento.cambiar = True
+                    self.jugador.vel_y = 0
             
             if self.cont >= 0:
                 self.cont -= 1
@@ -156,11 +161,16 @@ class Nivel_01(Nivel):
 
         posBoss = [ [8720,300], [9000,400], [9350,400], [9630,300],
                     ]
-        for pb in posBoss:
+        """for pb in posBoss:
             boss = Enemigo(5,0)
             boss.rect.x = pb[0]
             boss.rect.y = pb[1]
             self.enemigos_lista.add(boss)
+        """
+        self.boss = Jefe(posBoss)
+        self.boss.rect.x = 9000
+        self.boss.rect.y = 400
+        self.enemigos_lista.add(self.boss)
 
         bloquesBoss = [ [8720,400], [9000,500], [9350,500], [9630,400],
                         ]
@@ -172,7 +182,7 @@ class Nivel_01(Nivel):
             bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
 
-        bloque = BaseMov((9000,200),100)
+        bloque = BaseMov((9000,160),100)
         self.plataforma_lista.add(bloque)
 
 

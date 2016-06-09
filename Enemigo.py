@@ -1,5 +1,6 @@
 import pygame
 from  libplataforma import *
+import random
 
 class Enemigo(pygame.sprite.Sprite):
     def __init__(self, num, dist):
@@ -60,3 +61,32 @@ class Enemigo(pygame.sprite.Sprite):
         
         self.caminar()
         self.image = self.enemigo[self.ind][self.aux]
+
+class Jefe(pygame.sprite.Sprite):
+    def __init__(self, posiciones):
+        pygame.sprite.Sprite.__init__(self)
+        self.enemigo = cargar_fondo("Sprites/cave.png",110,114)
+        self.image = self.enemigo[0][0]
+        self.rect = self.image.get_rect() 
+        self.cant = 14
+        self.tipo = "jefe"
+        self.ind = 0
+        self.cantPos = len(posiciones)
+        self.pos = []
+        self.pos = posiciones
+        self.cambiar = True
+
+    def update(self):
+        if self.ind < self.cant:
+            self.ind += 1
+        else:
+            self.ind = 0
+        if self.cantPos > 0 and self.cambiar:
+            r = random.randint(0,self.cantPos-1)
+            p = self.pos[r]
+            self.rect.x = p[0]
+            self.rect.y = p[1]
+            self.cantPos -= 1
+            self.cambiar = False
+            print self.rect.x," ",self.rect.y," ",self.cantPos
+        self.image = self.enemigo[self.ind][0]
