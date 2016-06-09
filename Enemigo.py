@@ -20,7 +20,7 @@ class Enemigo(pygame.sprite.Sprite):
         	self.enemigo = cargar_fondo("Sprites/raton.png",109,60)
         	self.cant = 7
         else:
-        	self.enemigo = cargar_fondo("Sprites/cave.png",246,255)
+        	self.enemigo = cargar_fondo("Sprites/cave.png",110,114)
         	self.cant = 14
         if num == 5:
             self.mover = False

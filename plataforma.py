@@ -33,13 +33,12 @@ class Nivel(object):
         self.enemigos_lista = pygame.sprite.Group()
         self.jugador = jugador
         self.cont = 0
-    
+
     # Actualizamos elementos en el nivel
     def update(self):
         """ Actualiza todo lo que este en este nivel."""
         self.plataforma_lista.update()
         self.enemigos_lista.update()
-        #cuando el jugador choca con un pincho
         self.ls_impactos=pygame.sprite.spritecollide(self.jugador,self.enemigos_lista,False)
         for self.elemento in self.ls_impactos:
             # Verifica que sea un enemigo para poder destruirlo
@@ -154,6 +153,29 @@ class Nivel_01(Nivel):
             bloque.jugador = self.jugador
             self.plataforma_lista.add(bloque)
 
+
+        posBoss = [ [8720,300], [9000,400], [9350,400], [9630,300],
+                    ]
+        for pb in posBoss:
+            boss = Enemigo(5,0)
+            boss.rect.x = pb[0]
+            boss.rect.y = pb[1]
+            self.enemigos_lista.add(boss)
+
+        bloquesBoss = [ [8720,400], [9000,500], [9350,500], [9630,400],
+                        ]
+
+        for bb in bloquesBoss:
+            bloque = Base("Objetos/pl2.png")
+            bloque.rect.x = bb[0]
+            bloque.rect.y = bb[1]
+            bloque.jugador = self.jugador
+            self.plataforma_lista.add(bloque)
+
+        bloque = BaseMov((9000,200),100)
+        self.plataforma_lista.add(bloque)
+
+
 class Nivel_02(Nivel):
     """ Definicion para el nivel 2. """
     
@@ -204,7 +226,7 @@ if __name__ == "__main__":
     # Indicamos a la clase jugador cual es el nivel
     jugador.nivel = nivel_actual
     
-    jugador.rect.x = 2300
+    jugador.rect.x = 8600
     jugador.rect.y = ALTO - jugador.rect.height
     activos_sp_lista.add(jugador)
     
