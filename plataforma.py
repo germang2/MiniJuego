@@ -214,7 +214,16 @@ if __name__ == "__main__":
     pantalla = pygame.display.set_mode(tam)
     
     pygame.display.set_caption("Ejemplo de juego de plataforma")
-    
+    continuar = False
+    estado = 0
+    while not continuar:
+        if estado == 0:
+            estado = Menu(pantalla)
+        if estado == 2:
+            estado = MostrarTutorial(pantalla)
+
+        if estado == 1:
+            continuar = True
     # Creamos jugador
     jugador = Jugador()
     
@@ -243,18 +252,7 @@ if __name__ == "__main__":
     
     # Controlamos que tan rapido actualizamos pantalla
     reloj = pygame.time.Clock()
-    continuar = False
-    estado = 0
-    while not continuar:
-        if estado == 0:
-            estado = Menu(pantalla)
-            print estado
-        if estado == 2:
-            print estado
-            estado = MostrarTutorial(pantalla)
-
-        if estado == 1:
-            continuar = True
+    
     # Se carga musica de fondo
     pygame.mixer.music.load("Sonidos/fondo.mp3")
     pygame.mixer.music.play(1)

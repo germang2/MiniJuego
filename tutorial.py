@@ -12,3 +12,4 @@ def MostrarTutorial(pantalla):
 		    if event.type == pygame.KEYDOWN:
 		    	fin = True
 		    	return 0
+		pygame.display.flip()
