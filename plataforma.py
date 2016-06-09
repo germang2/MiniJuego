@@ -1,6 +1,8 @@
 import pygame
 from  libplataforma import *
 from Enemigo import *
+from inicio import *
+from tutorial import *
 
 #https://codeshare.io/2XFWk
 
@@ -23,7 +25,7 @@ class Nivel(object):
     
     # Imagen de Fondo
     #fondo = None
-    fondo=pygame.image.load("forest.jpg")
+    fondo = pygame.image.load("forest.jpg")
     fondo = pygame.transform.scale(fondo,(1300,600))
     #valor desplazamiento de fondo
     mov_fondo=0
@@ -231,7 +233,7 @@ if __name__ == "__main__":
     # Indicamos a la clase jugador cual es el nivel
     jugador.nivel = nivel_actual
     
-    jugador.rect.x = 8600
+    jugador.rect.x = 320
     jugador.rect.y = ALTO - jugador.rect.height
     activos_sp_lista.add(jugador)
     
@@ -241,11 +243,23 @@ if __name__ == "__main__":
     
     # Controlamos que tan rapido actualizamos pantalla
     reloj = pygame.time.Clock()
+    continuar = False
+    estado = 0
+    while not continuar:
+        if estado == 0:
+            estado = Menu(pantalla)
+            print estado
+        if estado == 2:
+            print estado
+            estado = MostrarTutorial(pantalla)
+
+        if estado == 1:
+            continuar = True
     # Se carga musica de fondo
     pygame.mixer.music.load("Sonidos/fondo.mp3")
     pygame.mixer.music.play(1)
 
-    while not fin:
+    while not fin and estado==1:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 fin = True
