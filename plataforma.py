@@ -161,16 +161,11 @@ class Nivel_01(Nivel):
 
         posBoss = [ [8720,300], [9000,400], [9350,400], [9630,300],
                     ]
-        """for pb in posBoss:
+        for pb in posBoss:
             boss = Enemigo(5,0)
             boss.rect.x = pb[0]
             boss.rect.y = pb[1]
             self.enemigos_lista.add(boss)
-        """
-        self.boss = Jefe(posBoss)
-        self.boss.rect.x = 9000
-        self.boss.rect.y = 400
-        self.enemigos_lista.add(self.boss)
 
         bloquesBoss = [ [8720,400], [9000,500], [9350,500], [9630,400],
                         ]
@@ -246,7 +241,10 @@ if __name__ == "__main__":
     
     # Controlamos que tan rapido actualizamos pantalla
     reloj = pygame.time.Clock()
-    
+    # Se carga musica de fondo
+    pygame.mixer.music.load("Sonidos/fondo.mp3")
+    pygame.mixer.music.play(1)
+
     while not fin:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
