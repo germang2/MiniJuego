@@ -313,7 +313,7 @@ if __name__ == "__main__":
                 if pausar:
                     llamado,pausar = pausarJuego(pantalla)
 
-                if llamado == 1 or llamado == -1:
+                if llamado == 1 or llamado == -1 or vida.valor == 0:
                     fin = True
                     activos_sp_lista.empty()
 
