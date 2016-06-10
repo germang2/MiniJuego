@@ -4,6 +4,7 @@ from Enemigo import *
 from inicio import *
 from tutorial import *
 from controles import *
+from pausa import *
 
 #https://codeshare.io/2XFWk
 
@@ -195,115 +196,131 @@ if __name__ == "__main__":
     # Se crea el control
     control = Control()
 
-    pygame.display.set_caption("Ejemplo de juego de plataforma")
-    continuar = False
-    estado = 0
-    while not continuar:
-        if estado == 0:
-            estado = Menu(pantalla)
-        if estado == 2:
-            estado = MostrarTutorial(pantalla)
-        if estado == 3:
-            estado = control.menuControl(pantalla)
-        if estado == 1 or estado == -1:
-            continuar = True
-            
+    pygame.display.set_caption("Ejemplo de juego de plataforma")            
 
-    # Creamos jugador
-    jugador = Jugador()
-    
-    # Creamos los niveles y la vida del jugador
-    nivel_lista = []
-    vida = Vida()
-    nivel_lista.append( Nivel_01(jugador,vida) )
-    
-    # Establecemos nivel actual
-    nivel_actual_no = 0
-    nivel_actual = nivel_lista[nivel_actual_no]
-    
-    # Lista de sprites activos
-    activos_sp_lista = pygame.sprite.Group()
-    # Indicamos a la clase jugador cual es el nivel
-    jugador.nivel = nivel_actual
-    
-    jugador.rect.x = 320
-    jugador.rect.y = ALTO - jugador.rect.height
-    activos_sp_lista.add(jugador)
-    
-    activos_sp_lista.add(vida)
-
-    fin = False
+    # Se carga musica de fondo
+    pygame.mixer.music.load("Sonidos/fondo.mp3")
     
     # Controlamos que tan rapido actualizamos pantalla
     reloj = pygame.time.Clock()
-    
-    # Se carga musica de fondo
-    pygame.mixer.music.load("Sonidos/fondo.mp3")
-    pygame.mixer.music.play(1)
 
-    while not fin and estado == 1:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                fin = True
-            
-            if event.type == pygame.KEYDOWN:
-                if event.key == control.izq:
-                    jugador.ir_izq()
-                    jugador.izquierda = True
-                if event.key == control.der:
-                    jugador.ir_der()
-                    jugador.derecha = True
-                if event.key == control.arriba:
-                    #print "salto"
-                    jugador.salto()
-                if event.key == control.bahamut:
-                    jugador.cambiarPersonaje(1)
-                if event.key == control.leviathan:
-                    jugador.cambiarPersonaje(2)
-                if event.key == control.phoenix:
-                    jugador.cambiarPersonaje(3)
-                if event.key == control.oso:
-                    jugador.cambiarPersonaje(4)
-                if event.key == control.buey:
-                    jugador.cambiarPersonaje(5)
-            else:
-                jugador.derecha = False
-                jugador.izquierda = False
-        
-            if event.type == pygame.KEYUP:
-                if event.key == control.izq and jugador.vel_x < 0:
-                    jugador.no_mover()
-                if event.key == control.der and jugador.vel_x > 0:
-                    jugador.no_mover()
+    finalizar = False
+    llamado = 1
+    while not finalizar:
+        if llamado == 1:
+            continuar = False
+            estado = 0
+            while not continuar:
+                if estado == 0:
+                    estado = Menu(pantalla)
+                if estado == 2:
+                    estado = MostrarTutorial(pantalla)
+                if estado == 3:
+                    estado = control.menuControl(pantalla)
+                if estado == 1:
+                    continuar = True
+                    llamado = 2
+                if estado == -1:
+                    continuar = True
+                    finalizar = True
+
+        if llamado == 2:
+            jugador = Jugador()
+            # Creamos los niveles y la vida del jugador
+            nivel_lista = []
+            vida = Vida()            
+            # Establecemos nivel actual
+            nivel_actual_no = 0            
+            # Lista de sprites activos
+            activos_sp_lista = pygame.sprite.Group()
+            # Indicamos a la clase jugador cual es el nivel    
+            nivel_lista.append( Nivel_01(jugador,vida) )
+            nivel_actual = nivel_lista[nivel_actual_no]
+            jugador.nivel = nivel_actual
+            jugador.rect.x = 320
+            jugador.rect.y = ALTO - jugador.rect.height
+            activos_sp_lista.add(jugador)
+            activos_sp_lista.add(vida)
+            pygame.mixer.music.play(1)
+            fin = False
+            pausar = False
+
+            while not fin and estado == 1:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        fin = True
+                        finalizar = True
                     
-        # Actualizamos al jugador.
-        activos_sp_lista.update()
+                    if event.type == pygame.KEYDOWN:
+                        if event.key == control.izq:
+                            jugador.ir_izq()
+                            jugador.izquierda = True
+                        if event.key == control.der:
+                            jugador.ir_der()
+                            jugador.derecha = True
+                        if event.key == control.arriba:
+                            #print "salto"
+                            jugador.salto()
+                        if event.key == control.bahamut:
+                            jugador.cambiarPersonaje(1)
+                        if event.key == control.leviathan:
+                            jugador.cambiarPersonaje(2)
+                        if event.key == control.phoenix:
+                            jugador.cambiarPersonaje(3)
+                        if event.key == control.oso:
+                            jugador.cambiarPersonaje(4)
+                        if event.key == control.buey:
+                            jugador.cambiarPersonaje(5)
+                        if event.key == pygame.K_p:
+                            pausar = True
+                    else:
+                        jugador.derecha = False
+                        jugador.izquierda = False
+                
+                    if event.type == pygame.KEYUP:
+                        if event.key == control.izq and jugador.vel_x < 0:
+                            jugador.no_mover()
+                        if event.key == control.der and jugador.vel_x > 0:
+                            jugador.no_mover()
+                            
+                # Actualizamos al jugador.
+                activos_sp_lista.update()
 
-        # Actualizamos elementos en el nivel
-        nivel_actual.update()
-        
-        #  Si el jugador se aproxima al limite derecho de la pantalla (-x)
-        if jugador.rect.x >= 650:
-            dif = jugador.rect.x - 650
-            jugador.rect.x = 650
-            nivel_actual.Mover_fondo(-dif)
-            
-        # Si el jugador se aproxima al limite izquierdo de la pantalla (+x)
-        if jugador.rect.x <= 300:
-            dif = 300 - jugador.rect.x
-            jugador.rect.x = 300
-            nivel_actual.Mover_fondo(dif)
-            
-        #Si llegamos al final del nivel
-        pos_actual=jugador.rect.x + nivel_actual.mov_fondo
-        if pos_actual < nivel_actual.limite:
-            jugador.rect.x=300
-            if nivel_actual_no < len(nivel_lista)-1:
-              nivel_actual_no += 1
-              nivel_actual = nivel_lista[nivel_actual_no]
-              jugador.nivel=nivel_actual
+                # Actualizamos elementos en el nivel
+                nivel_actual.update()
+                
+                #  Si el jugador se aproxima al limite derecho de la pantalla (-x)
+                if jugador.rect.x >= 650:
+                    dif = jugador.rect.x - 650
+                    jugador.rect.x = 650
+                    nivel_actual.Mover_fondo(-dif)
+                    
+                # Si el jugador se aproxima al limite izquierdo de la pantalla (+x)
+                if jugador.rect.x <= 300:
+                    dif = 300 - jugador.rect.x
+                    jugador.rect.x = 300
+                    nivel_actual.Mover_fondo(dif)
+                    
+                #Si llegamos al final del nivel
+                pos_actual=jugador.rect.x + nivel_actual.mov_fondo
+                if pos_actual < nivel_actual.limite:
+                    jugador.rect.x=300
+                    if nivel_actual_no < len(nivel_lista)-1:
+                      nivel_actual_no += 1
+                      nivel_actual = nivel_lista[nivel_actual_no]
+                      jugador.nivel=nivel_actual
 
-        nivel_actual.draw(pantalla)
-        activos_sp_lista.draw(pantalla)
-        reloj.tick(60)
-        pygame.display.flip()
+                if pausar:
+                    llamado,pausar = pausarJuego(pantalla)
+
+                if llamado == 1 or llamado == -1:
+                    fin = True
+                    activos_sp_lista.empty()
+
+                nivel_actual.draw(pantalla)
+                activos_sp_lista.draw(pantalla)
+                reloj.tick(60)
+                pygame.display.flip()
+
+        if llamado == -1:
+            finalizar = True
