@@ -35,7 +35,10 @@ class Nivel(object):
         self.plataforma_lista = pygame.sprite.Group() 
         self.enemigos_lista = pygame.sprite.Group()
         self.jugador = jugador
-        self.cont = 0
+        self.cont = 4
+        self.puntos = 0
+        self.fuente = pygame.font.Font(None, 30)
+        self.texto = self.fuente.render("Puntos: "+str(self.puntos), 0, BLANCO)
 
     # Actualizamos elementos en el nivel
     def update(self):
@@ -46,15 +49,15 @@ class Nivel(object):
         for self.elemento in self.ls_impactos:
             # Verifica que sea un enemigo para poder destruirlo
             self.pospies = self.jugador.rect.height+self.jugador.rect.y-10
-            if self.elemento.tipo == "enemigo":
+            if self.elemento.tipo == "enemigo" or self.elemento.tipo == "jefe":
                 if self.pospies <= self.elemento.rect.y and self.jugador.bajando:
                     self.enemigos_lista.remove(self.elemento)
                     self.jugador.vel_y = 0
+                    self.puntos += 200
+                    self.texto = self.fuente.render("Puntos: "+str(self.puntos), 0, BLANCO)
 
-            if self.elemento.tipo == "jefe":
-                if self.pospies <= self.elemento.rect.y and self.jugador.bajando:
-                    self.elemento.cambiar = True
-                    self.jugador.vel_y = 0
+                    if self.elemento.tipo == "jefe":
+                        self.cont -= 1
             
             if self.cont >= 0:
                 self.cont -= 1
@@ -69,7 +72,7 @@ class Nivel(object):
         pantalla.fill(AZUL)
         
         pantalla.blit(self.fondo, (0,0))
-        
+        pantalla.blit(self.texto, (1150, 50))
         # Dibujamos todos los sprites en las listas
         self.plataforma_lista.draw(pantalla)
         self.enemigos_lista.draw(pantalla)
@@ -183,31 +186,6 @@ class Nivel_01(Nivel):
         bloque = BaseMov((9000,160),100)
         self.plataforma_lista.add(bloque)
 
-
-class Nivel_02(Nivel):
-    """ Definicion para el nivel 2. """
-    
-    def __init__(self, jugador):
-        """ Creamos nivel 2. """
-        
-        # Llamamos al padre
-        Nivel.__init__(self, jugador)
-        self.limite=-1000
-        self.lvl = 1
-        # Arreglo con ancho, alto, x, y de la plataforma
-        nivel = [ [210, 50, 500, 500],
-                 [210, 50, 100, 400],
-                 [210, 50, 1000, 520],
-                 [210, 50, 1200, 300],
-                 ]
-            
-        for plataforma in nivel:
-            bloque = Plataforma(plataforma[0], plataforma[1])
-            bloque.rect.x = plataforma[2]
-            bloque.rect.y = plataforma[3]
-            bloque.jugador = self.jugador
-            self.plataforma_lista.add(bloque)
-
 if __name__ == "__main__":
     """ Programa principal """
     pygame.init()
@@ -238,7 +216,6 @@ if __name__ == "__main__":
     nivel_lista = []
     vida = Vida()
     nivel_lista.append( Nivel_01(jugador,vida) )
-    nivel_lista.append( Nivel_02(jugador) )
     
     # Establecemos nivel actual
     nivel_actual_no = 0

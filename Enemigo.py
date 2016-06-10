@@ -25,6 +25,7 @@ class Enemigo(pygame.sprite.Sprite):
         	self.cant = 14
         if num == 5:
             self.mover = False
+            self.tipo = "jefe"
 
         self.image = self.enemigo[0][0]
         self.rect = self.image.get_rect() 
