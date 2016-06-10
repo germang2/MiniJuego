@@ -9,6 +9,7 @@ def MostrarTutorial(pantalla):
 		for event in pygame.event.get():
 		    if event.type == pygame.QUIT:
 		        fin = True
+		        return -1
 		    if event.type == pygame.KEYDOWN:
 		    	fin = True
 		    	return 0

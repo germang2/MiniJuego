@@ -3,6 +3,7 @@ from  libplataforma import *
 from Enemigo import *
 from inicio import *
 from tutorial import *
+from controles import *
 
 #https://codeshare.io/2XFWk
 
@@ -213,6 +214,9 @@ if __name__ == "__main__":
     tam = [ANCHO, ALTO]
     pantalla = pygame.display.set_mode(tam)
     
+    # Se crea el control
+    control = Control()
+
     pygame.display.set_caption("Ejemplo de juego de plataforma")
     continuar = False
     estado = 0
@@ -221,9 +225,12 @@ if __name__ == "__main__":
             estado = Menu(pantalla)
         if estado == 2:
             estado = MostrarTutorial(pantalla)
-
-        if estado == 1:
+        if estado == 3:
+            estado = control.menuControl(pantalla)
+        if estado == 1 or estado == -1:
             continuar = True
+            
+
     # Creamos jugador
     jugador = Jugador()
     
@@ -257,39 +264,39 @@ if __name__ == "__main__":
     pygame.mixer.music.load("Sonidos/fondo.mp3")
     pygame.mixer.music.play(1)
 
-    while not fin and estado==1:
+    while not fin and estado == 1:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 fin = True
             
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
+                if event.key == control.izq:
                     jugador.ir_izq()
                     jugador.izquierda = True
-                if event.key == pygame.K_RIGHT:
+                if event.key == control.der:
                     jugador.ir_der()
                     jugador.derecha = True
-                if event.key == pygame.K_UP:
+                if event.key == control.arriba:
                     #print "salto"
                     jugador.salto()
-                if event.key == pygame.K_q:
+                if event.key == control.bahamut:
                     jugador.cambiarPersonaje(1)
-                if event.key == pygame.K_w:
+                if event.key == control.leviathan:
                     jugador.cambiarPersonaje(2)
-                if event.key == pygame.K_e:
+                if event.key == control.phoenix:
                     jugador.cambiarPersonaje(3)
-                if event.key == pygame.K_r:
+                if event.key == control.oso:
                     jugador.cambiarPersonaje(4)
-                if event.key == pygame.K_t:
+                if event.key == control.buey:
                     jugador.cambiarPersonaje(5)
             else:
                 jugador.derecha = False
                 jugador.izquierda = False
         
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT and jugador.vel_x < 0:
+                if event.key == control.izq and jugador.vel_x < 0:
                     jugador.no_mover()
-                if event.key == pygame.K_RIGHT and jugador.vel_x > 0:
+                if event.key == control.der and jugador.vel_x > 0:
                     jugador.no_mover()
                     
         # Actualizamos al jugador.

@@ -12,6 +12,7 @@ def Menu(pantalla):
 		for event in pygame.event.get():
 		    if event.type == pygame.QUIT:
 		        fin = True
+		        return -1
 		    if event.type == pygame.KEYDOWN:
 		    	if event.key == pygame.K_1:
 		    		fin = True
@@ -21,6 +22,8 @@ def Menu(pantalla):
 		    		return 2
 		    	elif event.key == pygame.K_3:	
 		    		fin = True
-		    		return 0
+		    		return 3
+		    	else:
+		    		None
 		pygame.display.flip()
 		    	
